@@ -12,7 +12,8 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-      - /app/dist 
+      - /app/dist
+    command: "npx ts-node-dev --poll src/index.ts"
     networks:
       - app-network
 
