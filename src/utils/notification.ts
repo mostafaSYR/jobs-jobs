@@ -5,13 +5,11 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || ''); 
 
 export const sendNotification = async (job: IJob) => {
-  console.log('inside sendNotification');
   const ngrokUrl = 'https://6426-176-1-136-200.ngrok-free.app';
   const approveUrl = `${ngrokUrl}/jobs/${job.id}/approve`;
   const spamUrl = `${ngrokUrl}/jobs/${job.id}/spam`;
 
 
-  console.log("this is email", process.env.MODERATOR_EMAIL);
   const msg = {
     to: process.env.MODERATOR_EMAIL, 
     from: process.env.SENDGRID_EMAIL_ADDRESS || 'abdulhamed.mostafa92@gmail.com', 

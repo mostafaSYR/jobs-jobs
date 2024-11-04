@@ -2,19 +2,10 @@ import { Request, Response } from "express";
 import prisma from "../prismaClient";
 import { JobStatus } from "@prisma/client";
 import { sendNotification } from "../utils/notification";
+import { fetchExternalJobs } from "../utils/externalJobs";
 
-export const listAllJobs = async (req: Request, res: Response) => {
-  const jobs = await prisma.job.findMany({
-    include: {
-      user: true,
-    }
-  });
-  res.render('jobList', { jobs });
-};
-
-
-export const listApprovedJobs = async (req: Request, res: Response) => {
-  const jobs = await prisma.job.findMany({
+export const listJobs = async (req: Request, res: Response) => {
+  const internalJobs = await prisma.job.findMany({
     where: {
       status: JobStatus.APPROVED
     },
@@ -22,7 +13,20 @@ export const listApprovedJobs = async (req: Request, res: Response) => {
       user: true,
     }
   });
-  console.log(jobs);
+  const externalJobs = await fetchExternalJobs();
+  const jobs = [...internalJobs, ...externalJobs];
+  res.render('jobList', { 
+    jobs,
+   });
+};
+
+
+export const listAllJobs = async (req: Request, res: Response) => {
+  const jobs = await prisma.job.findMany({
+    include: {
+      user: true,
+    }
+  });
   res.render('jobList', { jobs });
 };
 

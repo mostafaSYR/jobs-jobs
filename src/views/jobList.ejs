@@ -19,17 +19,16 @@
         <div class="card mt-5">
           <div class="card-body">
             <h5 class="card-title"><%= job.title %></h5>
-            <p class="card-text"><%= job.description %></p>
+            <% if (job.external) { %>
+              <%= job.htmlDescription %>
+            <% } else { %>
+              <p class="card-text"><%= job.description %></p>
+            <% } %>
+
             <p class="text-muted"><%= job.user?.email ? `Posted by: ${job.user.email}` : 'External Job' %></p>
 
-            <% if (job.externalLink) { %>
+            <% if (job.external) { %>
               <a href="<%= job.externalLink %>" class="btn btn-primary" target="_blank">View Job</a>
-            <% } else { %>
-              <% if (job.status == 'APPROVED') { %>
-                <a href="/jobs/<%= job.id %>/spam" class="btn btn-danger">Mark as Spam</a>
-              <% } else { %>
-                <a href="/jobs/<%= job.id %>/approve" class="btn btn-success">Approve</a>
-              <% } %>
             <% } %>
           </div>
         </div>
