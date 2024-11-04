@@ -4,12 +4,12 @@ const xml2js = require('xml2js');
 import { EXTERNAL_JOB, IJob } from '../interfaces/Job';
 import safeHtml from './safeHtml';
 
-const EXTERNAL_JOBS_URL: string = process.env.EXTERNAL_JOBS_URL || 'https://mrge-group-gmbh.jobs.personio.de';
+const EXTERNAL_JOBS_URL: string = process.env.EXTERNAL_JOBS_URL || '';
 
 export const fetchExternalJobs = async (): Promise<IJob[]> => {
     try {
         let jobs: IJob[] = [];
-        const response = await axios.get(EXTERNAL_JOBS_URL + '/xml');
+        const response = await axios.get(`${EXTERNAL_JOBS_URL}/xml`);
         const xml = response.data;
 
 
@@ -29,7 +29,7 @@ export const fetchExternalJobs = async (): Promise<IJob[]> => {
                  }).join(''),
                  email: 'external@external',
                  external: true,
-                 externalLink: EXTERNAL_JOBS_URL + '/job/' + entry.id[0],
+                 externalLink: `${EXTERNAL_JOBS_URL}/job/${entry.id[0]}`,
                  status: EXTERNAL_JOB,
              });
          }); 

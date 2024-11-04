@@ -5,14 +5,14 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || ''); 
 
 export const sendNotification = async (job: IJob) => {
-  const ngrokUrl = 'https://6426-176-1-136-200.ngrok-free.app';
+  const ngrokUrl = process.env.NGROK_URL;
   const approveUrl = `${ngrokUrl}/jobs/${job.id}/approve`;
   const spamUrl = `${ngrokUrl}/jobs/${job.id}/spam`;
 
 
   const msg = {
     to: process.env.MODERATOR_EMAIL, 
-    from: process.env.SENDGRID_EMAIL_ADDRESS || 'abdulhamed.mostafa92@gmail.com', 
+    from: process.env.SENDGRID_EMAIL_ADDRESS, 
     subject: 'New Job Posted for Approval',
     text: `
     A new job has been posted for approval:\n\n

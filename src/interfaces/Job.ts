@@ -5,9 +5,9 @@ export interface IJob {
     id: number;
     title: string;
     description: string;
-    htmlDescription?: string;
     status: JobStatus | string; 
     email: string;
+    htmlDescription?: string;
     external?: boolean;
     externalLink?: string;
 }

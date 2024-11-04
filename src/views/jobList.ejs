@@ -25,7 +25,7 @@
               <p class="card-text"><%= job.description %></p>
             <% } %>
 
-            <p class="text-muted"><%= job.user?.email ? `Posted by: ${job.user.email}` : 'External Job' %></p>
+            <p class="text-muted"><%= job.user?.email ? `Posted by: ${job.user.email}` : 'External Job**' %></p>
 
             <% if (job.external) { %>
               <a href="<%= job.externalLink %>" class="btn btn-primary" target="_blank">View Job</a>
