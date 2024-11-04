@@ -19,4 +19,11 @@ model Job {
   description String
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
+  status      JobStatus @default(PENDING)
+}
+
+enum JobStatus {
+  PENDING
+  APPROVED
+  SPAM
 }
